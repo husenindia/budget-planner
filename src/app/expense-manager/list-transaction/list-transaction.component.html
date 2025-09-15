@@ -1,0 +1,50 @@
+
+<div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-primary" routerLink="../add-transaction">Add Transaction</button>
+</div>
+
+<table class="table table-bordered shadow-sm"
+    *ngIf="(allTransactions$ | async) as allTransaction">
+        <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Date</th>
+            <th>Details</th>
+            <th>Category</th>
+            <th>Credit</th>
+            <th>Debit</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let transaction of allTransaction; let i = index"
+        [class.table-success]="transaction.transactionType"
+        [class.table-danger]="!transaction.transactionType">
+            <ng-container>
+                <td>{{ i + 1 }}</td>
+                <td>
+                    {{ transaction.formattedDate  }}
+                </td>
+                <td>
+                    {{ transaction.cause }}
+                </td>
+                <td>
+                    {{ transaction.categoryName }}
+                </td>
+                <td>
+                    <ng-container *ngIf="transaction.transactionType">{{ transaction.amount }}</ng-container>
+                </td>
+                <td>
+                    <ng-container *ngIf="!transaction.transactionType">{{ transaction.amount }}</ng-container>
+                </td>
+                <td>
+                    <div class="d-flex">
+                        <button routerLink="../edit-transaction/{{transaction.transactionId}}" class="btn btn-sm btn-primary me-3">Edit</button>
+                        <button (click)="deleteRecord(transaction.transactionId)" class="btn btn-sm btn-danger">Delete</button>
+                    </div>
+                </td>
+            </ng-container>
+        </tr>
+
+        </tbody>
+    </table>

@@ -1,0 +1,14 @@
+@if (isLoggedIn) {
+    <p>Supplier detail page</p>
+} 
+@else {
+    <p>Some other page</p>
+}
+
+@for (os of operatingSystems; track os.id) {
+    <div> {{ os.name }} </div>
+}
+
+{{ 'Dash will be added between every spaces.' | kababCase}}
+
+ <!-- <img ngSrc="600x400/000/fff" height="600" width="800" /> -->

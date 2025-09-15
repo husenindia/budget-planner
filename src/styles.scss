@@ -1,1 +1,10 @@
-/* You can add global styles to this file, and also import other style files */
+.table-danger {
+  --bs-table-bg: rgb(255, 248, 248);   /* lighter red */
+  --bs-table-border-color: #fbb;
+  --bs-table-color: #842029;
+}
+.table-success {
+  --bs-table-bg: #e9fbe9;
+  --bs-table-border-color: #c6f6c6;
+  --bs-table-color: #0a5c0a;
+}

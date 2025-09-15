@@ -1,0 +1,36 @@
+
+<div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-primary" routerLink="../add-category">Add Category</button>
+</div>
+
+<table class="table table-bordered shadow-sm"
+    *ngIf="(allCategory$ | async) as allCategory">
+        <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Category name</th>
+            <th>description</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let category of allCategory; let i = index">
+            <ng-container>
+                <td>{{ i + 1 }}</td>
+                <td>
+                    {{ category.name  }}
+                </td>
+                <td>
+                    {{ category.description }}
+                </td>
+                <td>
+                    <div class="d-flex">
+                        <button routerLink="../edit-category/{{category.categoryId}}" class="btn btn-sm btn-primary me-3">Edit</button>
+                        <button (click)="deleteRecord(category.categoryId)" class="btn btn-sm btn-danger">Delete</button>
+                    </div>
+                </td>
+            </ng-container>
+        </tr>
+
+        </tbody>
+    </table>

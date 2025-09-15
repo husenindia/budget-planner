@@ -1,0 +1,87 @@
+<div class="container mt-4">
+
+   <form [formGroup]="employeeForm" (ngSubmit)="onSubmit()" class="p-3 border rounded shadow-sm bg-light mb-3">
+        <!-- Employee Name -->
+        <div class="mb-3">
+            <label for="EmpName" class="form-label">Employee Name</label>
+            <input 
+            id="EmpName" 
+            type="text" 
+            class="form-control" 
+            [ngClass]="{'is-invalid': form['EmpName'].touched && form['EmpName'].invalid}"
+            formControlName="EmpName" 
+            placeholder="Enter employee name" />
+            <div class="invalid-feedback" *ngIf="form['EmpName'].errors?.['required']">
+            Employee Name is required.
+            </div>
+            <div class="invalid-feedback" *ngIf="form['EmpName'].errors?.['minlength']">
+            Minimum 3 characters required.
+            </div>
+        </div>
+
+        <!-- Department ID -->
+        <div class="mb-3">
+            <label for="DeptId" class="form-label">Department ID</label>
+            <input 
+            id="DeptId" 
+            type="number" 
+            class="form-control" 
+            [ngClass]="{'is-invalid': form['DeptId'].touched && form['DeptId'].invalid}"
+            formControlName="DeptId" 
+            placeholder="Enter department ID" />
+            <div class="invalid-feedback" *ngIf="form['DeptId'].errors?.['required']">
+            Department ID is required.
+            </div>
+            <div class="invalid-feedback" *ngIf="form['DeptId'].errors?.['min']">
+            Must be greater than 0.
+            </div>
+        </div>
+
+        <!-- Salary -->
+        <div class="mb-3">
+            <label for="Salary" class="form-label">Salary</label>
+            <input 
+            id="Salary" 
+            type="number" 
+            class="form-control" 
+            [ngClass]="{'is-invalid': form['Salary'].touched && form['Salary'].invalid}"
+            formControlName="Salary" 
+            placeholder="Enter salary" />
+           <div class="invalid-feedback" *ngIf="form['Salary'].errors?.['required']">
+            Salary is required.
+            </div>
+            <div class="invalid-feedback" *ngIf="form['Salary'].errors?.['min']">
+            Minimum salary should be 1000.
+            </div>
+        </div>
+
+        <!-- Submit -->
+        <button type="submit" class="btn btn-primary" [disabled]="employeeForm.invalid">
+            Submit
+        </button>
+    </form>
+
+      <table class="table table-hover table-bordered table-striped shadow-sm"
+    *ngIf="(employees$ | async) as employees">
+        <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Employee Name</th>
+            <th>Department ID</th>
+            <th>Salary ($)</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let emp of employees; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ emp.EmpName }}</td>
+            <td>{{ emp.DeptId }}</td>
+            <td>{{ emp.Salary | number }}</td>
+        </tr>
+        </tbody>
+    </table>
+
+</div>
+
+
+   

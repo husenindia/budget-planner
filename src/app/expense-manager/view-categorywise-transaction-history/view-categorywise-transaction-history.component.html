@@ -1,0 +1,17 @@
+<table class="table table-hover table-bordered table-striped shadow-sm"
+    *ngIf="(categoryWiseDetails$ | async) as categoryWiseDetails">
+        <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Category</th>
+            <th>Total</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let categoryWiseDetail of categoryWiseDetails; let i = index">
+            <td>{{ i + 1 }}</td>
+            <td>{{ categoryWiseDetail.categoryName }}</td>
+            <td>{{ categoryWiseDetail.totalAmount }}</td>
+        </tr>
+        </tbody>
+    </table>

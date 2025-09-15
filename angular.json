@@ -32,15 +32,12 @@
               }
             ],
             "styles": [
+              "node_modules/bootstrap/dist/css/bootstrap.min.css",
               "src/styles.scss"
             ],
-            "scripts": [],
-            "server": "src/main.server.ts",
-            "prerender": true,
-            "ssr": {
-              "entry": "server.ts"
-            }
+            "scripts": []
           },
+          
           "configurations": {
             "production": {
               "budgets": [
@@ -73,6 +70,38 @@
             },
             "development": {
               "buildTarget": "amt-version-upgrade:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "server": {
+          "builder": "@angular-devkit/build-angular:server",
+          "options": {
+            "outputPath": "dist/amt-version-upgrade/server",
+            "main": "src/main.server.ts",
+            "tsConfig": "tsconfig.server.json"
+          },
+          "configurations": {
+            "production": {
+              "outputHashing": "media"
+            },
+            "development": {
+              "sourceMap": true,
+              "optimization": false
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve-ssr": {
+          "builder": "@nguniversal/builders:ssr-dev-server",
+          "options": {
+            "browserTarget": "amt-version-upgrade:build:development",
+            "serverTarget": "amt-version-upgrade:server:development"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "amt-version-upgrade:build:production",
+              "serverTarget": "amt-version-upgrade:server:production"
             }
           },
           "defaultConfiguration": "development"

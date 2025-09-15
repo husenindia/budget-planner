@@ -1,0 +1,35 @@
+<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()" class="p-3 border rounded bg-light shadow-sm">
+  <!-- Name -->
+  <div class="mb-3">
+    <label for="name" class="form-label">Category Name</label>
+    <input
+      id="name"
+      type="text"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': f['name'].touched && f['name'].invalid }"
+      formControlName="name"
+      placeholder="Enter category name" />
+    <div class="invalid-feedback" *ngIf="f['name'].errors?.['required']">
+      Category name is required.
+    </div>
+    <div class="invalid-feedback" *ngIf="f['name'].errors?.['minlength']">
+      Minimum 2 characters required.
+    </div>
+  </div>
+
+  <!-- Description -->
+  <div class="mb-3">
+    <label for="description" class="form-label">Description (optional)</label>
+    <textarea
+      id="description"
+      rows="2"
+      class="form-control"
+      formControlName="description"
+      placeholder="Enter description"></textarea>
+  </div>
+
+  <!-- Submit -->
+  <button type="submit" class="btn btn-success" [disabled]="categoryForm.invalid">
+    Add/Update Category
+  </button>
+</form>
