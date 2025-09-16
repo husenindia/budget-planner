@@ -1,0 +1,10 @@
+import{q as _}from"./chunk-MJTXES5D.js";import{$a as y,Ta as h,Ya as m,Za as c,_a as N,ab as w,bb as V,da as a,eb as v,hb as f,ib as p,jb as u,kb as r,la as d,ma as g,mb as T,na as C,ob as s}from"./chunk-UNPINHNG.js";var A=["templateVariable1"],I=["templateVariableName"],l=(()=>{class t{constructor(){this.lifecycleTicks=0,this.flag=!1,console.log(`=======
+constructor: `,this.firstName)}ngOnInit(){console.log(`=======
+ngOnInit: `,this.firstName)}ngAfterViewInit(){console.log(`=======
+ng After View Init: `,this.firstName)}ngAfterViewChecked(){console.log(`=======
+ng After View Checked: `,this.firstName)}ngAfterContentInit(){console.log(`=======
+ng After Content Init: `,this.firstName)}ngAfterContentChecked(){console.log(`=======
+ng After Content Checked: `,this.firstName)}ngOnChanges(i){let e=i.firstName;console.log(`=======
+ngOnChange: `,`Name changed from ${e.previousValue} to ${e.currentValue}`),this.lifecycleTicks++}toggleContent(){}static{this.\u0275fac=function(e){return new(e||t)}}static{this.\u0275cmp=a({type:t,selectors:[["app-detail"]],viewQuery:function(e,n){if(e&1&&(f(A,5),f(I,5)),e&2){let o;p(o=u())&&(n.templateVariable1=o.first),p(o=u())&&(n.templateVariable2=o.first)}},inputs:{firstName:"firstName"},standalone:!0,features:[d,s],decls:8,vars:1,consts:[["templateVariable1",""],[3,"click"]],template:function(e,n){if(e&1){let o=V();r(0),m(1,"div",null,0),r(3,` Testing
+`),c(),m(4,"button",1),v("click",function(){return g(o),C(n.toggleContent())}),r(5,"Toggle Content"),c(),y(6),r(7,` Condition content displayed
+`),w()}e&2&&T("",n.firstName," ")},dependencies:[_]})}}return t})();var D=(()=>{class t{constructor(){this.firstName="Husen Telwala",setTimeout(()=>{this.firstName="Telwala Husen"},2e3)}static{this.\u0275fac=function(e){return new(e||t)}}static{this.\u0275cmp=a({type:t,selectors:[["app-list"]],standalone:!0,features:[s],decls:1,vars:1,consts:[[3,"firstName"]],template:function(e,n){e&1&&N(0,"app-detail",0),e&2&&h("firstName",n.firstName)},dependencies:[l]})}}return t})();var E=[{path:"",component:D},{path:"detail",component:l}];export{E as CONTACT_ROUTES};
