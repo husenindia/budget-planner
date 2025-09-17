@@ -17,6 +17,7 @@ import { ActivatedRoute, RouterModule } from '@angular/router';
 export class AddCategoryComponent {
   recordId: string | null = null;
   categoryForm!: FormGroup;
+  collectionCategory = 'Category';
 
   constructor(private fb: FormBuilder, private transactionService: TransactionService, private activatedRoute: ActivatedRoute) {}
 
@@ -29,7 +30,7 @@ export class AddCategoryComponent {
   }
 
   async loadRecord(id: string) {    
-      const snapshot = await this.transactionService.getRecordById('Category', id);
+      const snapshot = await this.transactionService.getRecordById(this.collectionCategory, id);
       if (snapshot.exists()) {
         this.categoryForm.patchValue(snapshot.data() as Category);
       }
@@ -51,10 +52,10 @@ export class AddCategoryComponent {
   if (this.categoryForm.valid) {      
     const data: Category = this.categoryForm.getRawValue();
       if(this.recordId) { // EDIT
-        this.transactionService.updateRecord('Category', this.recordId, data);
+        this.transactionService.updateRecord(this.collectionCategory, this.recordId, data);
       }
       else { // ADD
-        this.transactionService.addRecord(data);
+        this.transactionService.addRecord(this.collectionCategory, data);
       }
       this.categoryForm.reset();
       this.categoryForm.markAsPristine();

@@ -26,8 +26,8 @@ export class TransactionService {
     await updateDoc(docRef, data);
   }
 
-  async addRecord(data: any) {
-    const collectionData = collection(this.firestore, 'TransactionLog');
+  async addRecord(collectionName:string, data: any) {
+    const collectionData = collection(this.firestore, collectionName);
     await addDoc(collectionData, data); 
   }
 

@@ -19,7 +19,7 @@ export class AddTransactionComponent {
   allTransactions$!: Observable<TransactionLog[]>;
   categories$!: Observable<Category[]>;
   transactionId: string | null = null;
-
+  collectionTransaction = 'TransactionLog';
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private fb: FormBuilder, private firestore: Firestore, private transactionService: TransactionService) {}
 
   ngOnInit() {
@@ -33,7 +33,7 @@ export class AddTransactionComponent {
   }
 
   async loadTransaction(id: string) {    
-    const snapshot = await this.transactionService.getRecordById('TransactionLog', id);
+    const snapshot = await this.transactionService.getRecordById(this.collectionTransaction, id);
     if (snapshot.exists()) {
       this.transactionForm.patchValue(snapshot.data() as TransactionLog);
     }
@@ -59,10 +59,10 @@ export class AddTransactionComponent {
             date: new Date()            
         }
         if(this.transactionId) { // EDIT
-          this.transactionService.updateRecord('TransactionLog', this.transactionId, data);
+          this.transactionService.updateRecord(this.collectionTransaction, this.transactionId, data);
         }
         else { // ADD
-          this.transactionService.addRecord(data);
+          this.transactionService.addRecord(this.collectionTransaction, data);
         }
         this.transactionForm.reset();
         this.transactionForm.markAsPristine();
