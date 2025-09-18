@@ -3,7 +3,7 @@ import { provideRouter } from '@angular/router';
 
 import { routes } from './app.routes';
 import { provideClientHydration } from '@angular/platform-browser';
-import { provideImgixLoader } from '@angular/common';
+import { DatePipe, provideImgixLoader } from '@angular/common';
 
 import { provideFirebaseApp, initializeApp } from '@angular/fire/app';
 import { getFirestore, provideFirestore } from '@angular/fire/firestore';
@@ -18,5 +18,6 @@ export const appConfig: ApplicationConfig = {
     provideFirestore(() => getFirestore()),
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
+    { provide: DatePipe, useClass: DatePipe }  // Corrected provider for DatePipe
   ]
 };

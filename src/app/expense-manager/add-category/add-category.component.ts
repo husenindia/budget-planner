@@ -3,7 +3,7 @@ import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TransactionService } from '../../service/transaction.service';
 import { Category } from '../../modal/transaction.modal';
-import { ActivatedRoute, RouterModule } from '@angular/router';
+import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 
 @Component({
@@ -19,7 +19,7 @@ export class AddCategoryComponent {
   categoryForm!: FormGroup;
   collectionCategory = 'Category';
 
-  constructor(private fb: FormBuilder, private transactionService: TransactionService, private activatedRoute: ActivatedRoute) {}
+  constructor(private fb: FormBuilder, private router: Router, private transactionService: TransactionService, private activatedRoute: ActivatedRoute) {}
 
   ngOnInit(): void {
     this.recordId = this.activatedRoute.snapshot.paramMap.get('id');
@@ -48,20 +48,22 @@ export class AddCategoryComponent {
     return this.categoryForm.controls;
   }
 
-  onSubmit(): void {    
-  if (this.categoryForm.valid) {      
-    const data: Category = this.categoryForm.getRawValue();
-      if(this.recordId) { // EDIT
-        this.transactionService.updateRecord(this.collectionCategory, this.recordId, data);
-      }
-      else { // ADD
-        this.transactionService.addRecord(this.collectionCategory, data);
-      }
-      this.categoryForm.reset();
-      this.categoryForm.markAsPristine();
-  } else {
-    this.categoryForm.markAllAsTouched();
+  onSubmit(): void {  
+    console.log('Category form submitted');   
+    if (this.categoryForm.valid) {      
+      const data: Category = this.categoryForm.getRawValue();
+        if(this.recordId) { // EDIT
+          this.transactionService.updateRecord(this.collectionCategory, this.recordId, data);
+        }
+        else { // ADD
+          this.transactionService.addRecord(this.collectionCategory, data);
+        }
+        this.router.navigate(['/expense-manager/category-list']);
+        this.categoryForm.reset();
+        this.categoryForm.markAsPristine();
+    } else {
+      this.categoryForm.markAllAsTouched();
+    }
   }
-}
 }
 

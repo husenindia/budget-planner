@@ -6,16 +6,18 @@
     </button>
     <div class="collapse navbar-collapse justify-content-between" id="navbarSupportedContent">
       <ul class="navbar-nav me-auto mb-2 mb-lg-0" 
-      *ngIf="(auth.user$ | async)">
-        
+      *ngIf="(auth.user$ | async)">        
         <li class="nav-item">
           <a routerLink="./expense-manager/category-list" class="nav-link" href="javascript:void(0);">Category list</a>
         </li>
         <li class="nav-item">
           <a routerLink="./expense-manager/transaction-list" class="nav-link" href="javascript:void(0);">Transaction List</a>
         </li>
-          <li class="nav-item">
+        <li class="nav-item">
           <a routerLink="./expense-manager/categorywise-transaction-history" class="nav-link" href="javascript:void(0);">Categorywise Transaction List</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="./expense-manager/monthly-saving" class="nav-link" href="javascript:void(0);">Monthly Saving</a>
         </li>
       </ul>
       <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">

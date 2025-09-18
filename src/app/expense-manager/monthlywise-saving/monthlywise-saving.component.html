@@ -1,0 +1,45 @@
+  <div class="row justify-content-center">
+    <div class="col-md-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <!-- <h3 class="text-center mb-4">Monthly Saving</h3> -->
+        </div>
+        </div>
+    </div>
+</div>
+
+<table class="table table-bordered shadow-sm"
+*ngIf="(allTransactions$ | async) as allTransaction">
+        <thead class="table-dark">
+        <tr>
+            <th>Month/Year</th>
+            <th>Creditted</th>
+            <th>Debitted</th>
+            <th>Saving</th>
+            <th>Investment</th>
+        </tr>
+        
+        </thead>
+        <tbody>
+        <tr *ngFor="let object of monthlySummary; let i = index">
+            <ng-container>
+                <td>{{object.month}}/{{object.year}}</td>                
+                <td>
+                    {{ object.creditTotal }}
+                </td>
+                <td>
+                    {{ object.debitTotal }}
+                </td>
+                <td 
+                [class.table-success]="object.netTotal>0"
+                [class.table-danger]="object.netTotal<=0">
+                    {{ object.netTotal }}
+                </td>
+                <td>
+                    {{ object.investmentTotal }}
+                </td>
+
+            </ng-container>
+        </tr>
+        </tbody>
+    </table>

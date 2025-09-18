@@ -4,6 +4,7 @@ import { AddTransactionComponent } from './add-transaction/add-transaction.compo
 import { ViewCategorywiseTransactionHistoryComponent } from './view-categorywise-transaction-history/view-categorywise-transaction-history.component';
 import { ListTransactionComponent } from './list-transaction/list-transaction.component';
 import { ListCategoryComponent } from './list-category/list-category.component';
+import { MonthlywiseSavingComponent } from './monthlywise-saving/monthlywise-saving.component';
 
 export const EXPENSEMANAGER_ROUTES: Routes = [
   { path: 'add-transaction', component: AddTransactionComponent },
@@ -13,5 +14,6 @@ export const EXPENSEMANAGER_ROUTES: Routes = [
   { path: 'transaction-list', component: ListTransactionComponent },
   { path: 'category-list', component: ListCategoryComponent },
   { path: 'categorywise-transaction-history', component: ViewCategorywiseTransactionHistoryComponent },
+  { path: 'monthly-saving', component: MonthlywiseSavingComponent },
   
 ];

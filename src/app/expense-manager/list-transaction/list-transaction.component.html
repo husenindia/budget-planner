@@ -23,7 +23,7 @@
             <ng-container>
                 <td>{{ i + 1 }}</td>
                 <td>
-                    {{ transaction.formattedDate  }}
+                    {{ transaction.formattedDate | date:'dd/MM/yyyy'   }}
                 </td>
                 <td>
                     {{ transaction.cause }}

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subscription, take } from 'rxjs';
 import { CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { addDoc, collection, collectionData, doc, Firestore, updateDoc } from '@angular/fire/firestore';
@@ -20,6 +20,8 @@ export class AddTransactionComponent {
   categories$!: Observable<Category[]>;
   transactionId: string | null = null;
   collectionTransaction = 'TransactionLog';
+  subscriptions: Subscription[] = [];
+
   constructor(private activatedRoute: ActivatedRoute, private router: Router, private fb: FormBuilder, private firestore: Firestore, private transactionService: TransactionService) {}
 
   ngOnInit() {
@@ -49,9 +51,10 @@ export class AddTransactionComponent {
   }
 
   onSubmit(): void {    
+    console.log('Transaction form submitted');   
     if (this.transactionForm.valid) {      
       const transactionLog: TransactionLog = this.transactionForm.getRawValue();
-      this.categories$.subscribe(categories => {              
+      this.subscriptions.push(this.categories$.subscribe(categories => {              
         const selectedCat = categories.find(c => c.categoryId === transactionLog.categoryId);
         const data: TransactionLog = {
             ...transactionLog,
@@ -64,9 +67,10 @@ export class AddTransactionComponent {
         else { // ADD
           this.transactionService.addRecord(this.collectionTransaction, data);
         }
+        this.router.navigate(['/expense-manager/transaction-list']);
         this.transactionForm.reset();
         this.transactionForm.markAsPristine();
-      });
+      }));
       
     } else {
       this.transactionForm.markAllAsTouched();
@@ -76,4 +80,12 @@ export class AddTransactionComponent {
   get form() {
     return this.transactionForm.controls;
   }
-}
+
+  ngOnDestroy(): void {
+    // Unsubscribe when the component is destroyed to prevent memory leaks
+    if (this.subscriptions.length>0) {
+      this.subscriptions.forEach((sub) => sub.unsubscribe());
+    }
+  }
+}  // Unsubscribe when the component is destroyed to prevent memory leaks
+  
