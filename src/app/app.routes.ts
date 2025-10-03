@@ -25,7 +25,13 @@ export const routes: Routes = [
         loadChildren: () =>
             import('./expense-manager/expense-manager.routes').then(m =>m.EXPENSEMANAGER_ROUTES),
         canActivate: [AuthGuard]
-    },    
+    },  
+    {
+        path: 'investment-manager',
+        loadChildren: () =>
+            import('./investment-manager/investment-manager.routes').then(m =>m.INVESTMENTMANAGER_ROUTES),
+        canActivate: [AuthGuard]
+    },  
     {
         path: 'supplier',
         loadChildren: () => 
