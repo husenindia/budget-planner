@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';
 import { TransactionService } from '../../service/transaction.service';
 import { RouterModule } from '@angular/router';
-import { Category } from '../../modal/transaction.modal';
+import { CategoryModal } from '../../modal/transaction.modal';
 
 @Component({
   selector: 'app-list-category',
@@ -14,7 +14,7 @@ import { Category } from '../../modal/transaction.modal';
   providers: [DatePipe]
 })
 export class ListCategoryComponent {
-  allCategory$!: Observable<Category[]>;
+  allCategory$!: Observable<CategoryModal[]>;
   collectionName = 'Category';
   collectionId  = 'categoryId';
   constructor(private transactionService: TransactionService, private datePipe: DatePipe) {}

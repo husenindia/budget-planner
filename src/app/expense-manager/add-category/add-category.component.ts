@@ -2,7 +2,7 @@ import { CommonModule } from '@angular/common';
 import { Component } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup, FormsModule, ReactiveFormsModule, Validators } from '@angular/forms';
 import { TransactionService } from '../../service/transaction.service';
-import { Category } from '../../modal/transaction.modal';
+import { CategoryModal } from '../../modal/transaction.modal';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
 
 
@@ -32,7 +32,7 @@ export class AddCategoryComponent {
   async loadRecord(id: string) {    
       const snapshot = await this.transactionService.getRecordById(this.collectionCategory, id);
       if (snapshot.exists()) {
-        this.categoryForm.patchValue(snapshot.data() as Category);
+        this.categoryForm.patchValue(snapshot.data() as CategoryModal);
       }
     }
   
@@ -51,7 +51,7 @@ export class AddCategoryComponent {
   onSubmit(): void {  
     console.log('Category form submitted');   
     if (this.categoryForm.valid) {      
-      const data: Category = this.categoryForm.getRawValue();
+      const data: CategoryModal = this.categoryForm.getRawValue();
         if(this.recordId) { // EDIT
           this.transactionService.updateRecord(this.collectionCategory, this.recordId, data);
         }
