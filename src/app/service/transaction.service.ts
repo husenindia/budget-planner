@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, deleteDoc, doc, Firestore, getDoc, orderBy, query, updateDoc } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, deleteDoc, doc, Firestore, getDoc, getDocs, orderBy, query, updateDoc, where, writeBatch } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Timestamp } from '@angular/fire/firestore';
 import { DatePipe } from '@angular/common';
@@ -68,6 +68,22 @@ export class TransactionService {
       months--;
     }
     return months;
+  }
+
+
+  async updateAllRecords(collectionName: string, data: any) {
+    const colRef = collection(this.firestore, collectionName);
+    const snapshot = await getDocs(colRef);
+    
+    const batch = writeBatch(this.firestore);
+
+    snapshot.forEach((docSnap) => {
+      const docRef = docSnap.ref;
+      batch.update(docRef, data);
+    });
+
+    await batch.commit();
+    console.log(`Updated ${snapshot.size} records in ${collectionName}`);
   }
 }
 

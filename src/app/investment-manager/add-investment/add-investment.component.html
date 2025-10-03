@@ -1,0 +1,77 @@
+<form [formGroup]="transactionForm" (ngSubmit)="onSubmit()" class="p-3 border rounded shadow-sm bg-light">
+  <!-- Cause -->
+
+  <div class="mb-3">
+    <label for="cause" class="form-label">Transaction Details</label>
+    <input
+      id="cause"
+      type="text"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': form['cause'].touched && form['cause'].invalid }"
+      formControlName="cause"
+      placeholder="Enter Transaction Details" />
+    <div class="invalid-feedback" *ngIf="form['cause'].errors?.['required']">
+      Cause is required.
+    </div>
+    <div class="invalid-feedback" *ngIf="form['cause'].errors?.['minlength']">
+      Minimum 3 characters required.
+    </div>
+  </div>
+
+  
+  <!-- Amount -->
+  <div class="mb-3">
+    <label for="amount" class="form-label">Amount</label>
+    <input
+      id="amount"
+      type="number"
+      class="form-control"
+      [ngClass]="{ 'is-invalid': form['amount'].touched && form['amount'].invalid }"
+      formControlName="amount"
+      placeholder="Enter amount" />
+    <div class="invalid-feedback" *ngIf="form['amount'].errors?.['required']">
+      Amount is required.
+    </div>
+    <div class="invalid-feedback" *ngIf="form['amount'].errors?.['min']">
+      Must be greater than 0.
+    </div>
+  </div>
+
+  <!-- Category -->
+  <div class="mb-3">
+    <label for="categoryId" class="form-label">Category</label>
+    <select id="categoryId" class="form-select" formControlName="categoryId"
+    *ngIf="(categories$ | async) as categories">
+      <option value="" disabled>Select Category</option>
+      <option *ngFor="let cat of categories" [value]="cat.categoryId">
+        {{ cat.name }}
+      </option>
+    </select>    
+    <div class="invalid-feedback" *ngIf="form['categoryId'].errors?.['required']">
+      Category is required.
+    </div>
+  </div>
+
+  
+  <div class="mb-3">
+     <mat-form-field>
+      <label for="Date" class="form-label">Date</label>
+      <input
+        matInput
+        formControlName="date"        
+        id="Date"
+        [matDatepicker]="picker"/>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker> 
+    </mat-form-field>
+  </div>
+
+
+
+  <!-- Note: date field is NOT shown (auto-generated in TS) -->
+
+  <!-- Submit -->
+  <button type="submit" class="btn btn-primary" [disabled]="transactionForm.invalid">
+    Submit
+  </button>
+</form>

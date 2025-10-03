@@ -1,0 +1,66 @@
+
+<div class="d-flex justify-content-end mb-3">
+    <button class="btn btn-primary me-3" (click)="updateLastProssedDate();">Sync Transaction</button>
+    <button class="btn btn-primary" routerLink="../add-monthly-investment">Add Transaction</button>
+</div>
+<table class="table table-bordered shadow-sm"
+    *ngIf="(allTransactions$ | async) as allTransaction">
+        <thead class="table-dark">
+        <tr>
+            <th>#</th>
+            <th>Start Date</th>
+            <th>Last Processed Date</th>            
+            <th>Details</th>
+            <th>Investment type</th>
+            <th>Amount</th>
+            <th>Months of Installments</th>
+            <th>Amount invested</th>
+            <th>Return %</th>
+            <th>Expected return</th>
+            <th>Action</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let transaction of allTransaction; let i = index">
+                <ng-container>
+                    <td>{{ i + 1 }}</td>
+                    <td>
+                        {{ transaction.formattedDate | date:'dd/MM/yyyy' }}
+                    </td>
+                    <td>
+                        {{ transactionService.formatDate(transaction.lastProcessedDate) | date:'dd/MM/yyyy' }}
+                    </td>
+                    <td>
+                        {{ transaction.cause }}
+                    </td>
+                    <!-- Investment type -->
+                    <td>
+                        {{ transaction.categoryName }}
+                    </td>
+                    <!-- Amout -->
+                    <td>{{ transaction.amount }}</td>
+
+                    <!-- Number of installments -->
+                    <td>{{ transaction.numberOfInstallments }}</td> 
+
+                    <!-- Amout invested -->
+                    <td *ngIf="transaction.categoryName=='SIP'">{{ (transaction.amount * transaction.numberOfInstallments) }}</td> 
+                    <td *ngIf="transaction.categoryName!='SIP'">{{ transaction.amount }}</td> 
+
+                    <!--Return %-->
+                    <td>{{transaction.expectedReturn}}%</td>
+                    <!-- Expected Return -->
+                    <td>
+                        {{ getExpectedReturn(transaction) | number:'1.0-0' }}
+                    </td>
+                    <td>
+                        <div class="d-flex">
+                            <button routerLink="../edit-monthly-investment/{{transaction.monthlyInvestmentId}}" class="btn btn-sm btn-primary me-3">Edit</button>
+                            <button (click)="deleteConfirmation(transaction.monthlyInvestmentId)" class="btn btn-sm btn-danger">Delete</button>
+                        </div>
+                    </td>
+                </ng-container>
+            </tr>
+        </tbody>
+    </table>
+    

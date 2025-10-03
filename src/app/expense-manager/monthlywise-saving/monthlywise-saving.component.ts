@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { map, Observable, Subscription } from 'rxjs';
 import { CommonModule, DatePipe } from '@angular/common';
 import { TransactionService } from '../../service/transaction.service';
-import { MonthlySummary, TransactionLogWithFormattedDate } from '../../modal/transaction.modal';
+import { MonthlySummaryModal, TransactionLogWithFormattedDate } from '../../modal/transaction.modal';
 
 
 @Component({
@@ -17,7 +17,7 @@ export class MonthlywiseSavingComponent {
   allTransactions$!: Observable<TransactionLogWithFormattedDate[]>;
   collectionName = 'TransactionLog';
   collectionId  = 'transactionId';
-  monthlySummary: MonthlySummary[] = [];
+  monthlySummary: MonthlySummaryModal[] = [];
   subscriptions: Subscription[] = [];
   
   constructor(private transactionService: TransactionService) {}
@@ -38,7 +38,7 @@ export class MonthlywiseSavingComponent {
 
   monthwiseSaving() {
     this.subscriptions.push(this.allTransactions$.subscribe((allTransactions) => {
-      const monthlyData: { [key: string]: MonthlySummary } = {};
+      const monthlyData: { [key: string]: MonthlySummaryModal } = {};
       allTransactions.forEach(transaction => {
         let parsedDate: Date | null = null;
 
