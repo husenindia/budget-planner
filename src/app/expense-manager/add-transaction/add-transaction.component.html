@@ -67,6 +67,22 @@
     </div>
   </div>
 
+  
+  <div class="mb-3">
+     <mat-form-field>
+      <label for="Date" class="form-label">Date</label>
+      <input
+        matInput
+        formControlName="date"        
+        id="Date"
+        [matDatepicker]="picker"/>
+      <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker> 
+    </mat-form-field>
+  </div>
+
+
+
   <!-- Note: date field is NOT shown (auto-generated in TS) -->
 
   <!-- Submit -->
