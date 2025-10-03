@@ -19,6 +19,16 @@
         <li class="nav-item">
           <a routerLink="./expense-manager/monthly-saving" class="nav-link" href="javascript:void(0);">Monthly Saving</a>
         </li>
+
+        <li class="nav-item">
+          <a routerLink="./investment-manager/investment-category-list" class="nav-link" href="javascript:void(0);">Investment Category</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="./investment-manager/investment-list" class="nav-link" href="javascript:void(0);">Investment</a>
+        </li>
+        <li class="nav-item">
+          <a routerLink="./investment-manager/monthly-investment-list" class="nav-link" href="javascript:void(0);">Monthly Investment</a>
+        </li>
       </ul>
       <ul class="navbar-nav mb-2 mb-lg-0 ms-auto">
         <li class="nav-item" *ngIf="(auth.user$ | async)">
@@ -37,5 +47,6 @@
   </div>
 </nav>
 <div class="container">
+    <!-- <app-automatic-calculation></app-automatic-calculation> -->
     <router-outlet/>
 </div>
