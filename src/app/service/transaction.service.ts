@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { addDoc, collection, collectionData, deleteDoc, doc, Firestore, getDoc, updateDoc } from '@angular/fire/firestore';
+import { addDoc, collection, collectionData, deleteDoc, doc, Firestore, getDoc, orderBy, query, updateDoc } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
 import { Timestamp } from '@angular/fire/firestore';
 import { DatePipe } from '@angular/common';
@@ -10,9 +10,18 @@ export class TransactionService {
 
   constructor(private firestore: Firestore, private datePipe: DatePipe) { }
 
-  getAllRecords(collectionName:string, id:string): Observable<any[]> {
+  getAllRecords(
+    collectionName:string, 
+    id:string,
+    sortField?: string,               // optional
+    direction: 'asc' | 'desc' = 'asc' // default = asc
+  ): Observable<any[]> {
     const collectionLog = collection(this.firestore, collectionName);
-    return collectionData(collectionLog, { idField: id }) as Observable<any[]>;
+    const q = sortField? 
+    query(collectionLog, orderBy(sortField, direction))
+    : collectionLog;
+
+    return collectionData(q, { idField: id }) as Observable<any[]>;
   }
 
 
@@ -37,7 +46,7 @@ export class TransactionService {
     return snapshot;
   }
   // Method to handle both Date and Timestamp
-  formatDate(date: Date | Timestamp): any | null {
+  formatDate(date: Date | Timestamp | null): any | null {
     if (date instanceof Timestamp) {
       // If date is a Firestore Timestamp, convert it to Date
       return this.datePipe.transform(date.toDate(), 'YYYY/MM/dd');
@@ -46,6 +55,19 @@ export class TransactionService {
       return this.datePipe.transform(date, 'YYYY/MM/dd');
     }
     return null; // Return null if date is invalid
+  }
+  monthsDiffDetailed(start: Timestamp, end: Timestamp): number {
+    const startDate = start?.toDate();
+    const endDate = end?.toDate();
+    let months =
+      (endDate?.getFullYear() - startDate?.getFullYear()) * 12 +
+      (endDate?.getMonth() - startDate?.getMonth());
+
+    // If end day is less than start day → subtract 1 month
+    if (endDate?.getDate() < startDate?.getDate()) {
+      months--;
+    }
+    return months;
   }
 }
 
